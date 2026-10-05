@@ -2,7 +2,7 @@
 
 Documento consolidado de toda a pesquisa científica usada para montar o treino e dieta do Carlos. Para uso em ajustes futuros.
 
-**Última atualização:** 2026-04-12
+**Última atualização:** 2026-10-05 (v3.0)
 
 ---
 
@@ -12,13 +12,15 @@ Documento consolidado de toda a pesquisa científica usada para montar o treino 
 |---|---|
 | Idade | 25 anos |
 | Sexo | Masculino |
-| Peso | 83 kg |
+| Peso | 82 kg (out/2026; era 83 em abr/2026) |
 | Altura | 1.83 m |
-| BF estimado | ~20% (impedância) |
-| LBM | ~66.4 kg |
+| BF estimado | ~20% (impedância, praticamente igual a abril) |
+| LBM | ~65.6 kg |
 | Trabalho | Home office (NEAT baixo) |
-| Treinos/sem | 6 (LPO 2x + força 3x + boxe 1x) |
+| Treinos/sem | 6 (LPO 2x + CrossFit 2x + academia 2x) + bike 1-2x |
 | Objetivo | Recomposição (perder gordura, manter/ganhar força) |
+
+**Histórico abr→out/2026:** -1 kg em 6 meses com meta de 2.610 kcal. Aderência parcial, mas mesmo nas semanas seguidas não houve perda perceptível. Conclusão: TDEE de 3.000 estava superestimado (home office) e a avaliação era por peso diário, que varia 1-2 kg por água. Boxe foi abandonado; CrossFit entrou 2x/sem.
 
 ### Condições musculoesqueléticas
 - **Escoliose** (lado esquerdo concavo, atrofia paraspinal esq)
@@ -44,33 +46,33 @@ Documento consolidado de toda a pesquisa científica usada para montar o treino 
 
 ---
 
-## 2. Periodização — Modelo Híbrido
+## 2. Periodização — v3 (academia só acessórios)
 
-**Modelo escolhido:** DUP (upper) + Linear progression (lower compostos)
+**Modelo v3:** agachamento, terra e toda a cadeia posterior saíram da academia — LPO e CrossFit cobrem os compostos pesados. A academia cobre só o que eles não cobrem: peito alto (cabeça clavicular), braços, estabilizadores escapulares e core da escoliose.
 
-### Por quê?
-- **Linear no agacha/terra:** atleta em fase novato — janela única de progressão sessão a sessão. Grgic et al. 2017 mostra que pra novatos qualquer modelo funciona, mas linear é o mais simples e produtivo.
-- **DUP no upper:** Ralston et al. 2022 (Sports Medicine meta-análise) — DUP gera +28% mais ganho de força que linear em treinados. Atleta tem base de upper body de 2 meses.
+- **Supino inclinado 30° barra** é o único exercício por % de 1RM (rampa por semana). Landmine press também usa % de 1RM.
+- Todo o resto usa peso de trabalho fixo com rampa interna (70/85/100%).
+- Mesociclo de 4 semanas continua: S1-S3 progressivas, S4 deload (-20% peso, -1 série).
+- Braços com frequência 2x/sem: quinta tríceps pesado + bíceps leve, sábado bíceps pesado + tríceps leve.
 
-### Mesociclo de 4 semanas (3 progressivas + 1 deload)
-- S1-S3: progressão linear (+4kg/sem nos compostos pesados)
-- S4: deload (-20% peso, -1 série)
-
-### Distribuição semanal
+### Distribuição semanal (v3)
 | Dia | Treino |
 |---|---|
-| Segunda | LPO (snatch + clean & jerk) |
-| Terça | Upper Push (peito, ombro, tríceps) |
+| Segunda | LPO |
+| Terça | CrossFit |
 | Quarta | LPO |
-| Quinta | Lower (squat + deadlift + acessórios) |
-| Sexta | Boxe |
-| Sábado | Upper Pull + extras |
-| Domingo | Descanso |
+| Quinta | Academia: peito + tríceps + core anti-extensão/rotação (+ bike curta opcional) |
+| Sexta | CrossFit |
+| Sábado | Academia: costas + ombro + bíceps + core lateral (+ bike curta opcional) |
+| Domingo | Bike longa (zona 2) |
 
-**Princípios:**
-- Força e LPO **nunca em dias consecutivos** (Schumann 2022: separar sessões por mín. 6h, ideal 24h)
-- LPO sempre em estado fresco (mais sensível à interferência)
-- Boxe entre dois treinos leves
+**Princípios mantidos:**
+- Bike nunca em dia de LPO ou CrossFit (Schumann 2022: interferência e recuperação)
+- Core da escoliose em todo dia de academia (anti-extensão, anti-rotação, anti-flexão lateral)
+- Séries extras e "esquerdo primeiro" nos unilaterais
+
+### Modelo anterior (v2, abr-set/2026) — referência
+DUP no upper + linear no lower, 3 dias de academia (push/lower/pull) + LPO 2x + boxe 1x. Abandonado quando o CrossFit substituiu o dia de lower e o boxe.
 
 ---
 
@@ -102,6 +104,8 @@ Documento consolidado de toda a pesquisa científica usada para montar o treino 
 | **Tríceps Francês (skull crusher)** | MODERADA | 2ª melhor pra cabeça longa; bom stretch + carga |
 
 ### 3.2 LOWER (Quadríceps + Posterior + Glúteo + Panturrilha)
+
+> **v3:** fora do app. Cobertos por LPO + CrossFit. Tabelas mantidas como referência caso voltem. Risco conhecido: Nordic curl era a prevenção de isquios (-51% lesão); se posteriores ficarem doloridos com o CrossFit, devolver ao sábado.
 
 #### Agachamento
 | Variação | Evidência | Quando usar |
@@ -195,14 +199,10 @@ Documento consolidado de toda a pesquisa científica usada para montar o treino 
 
 ### Compostos (bb type) — % do 1RM por semana
 
-**Padrão de rampa** dentro da sessão (S1 = leve, série final = trabalho)
-
 | Exercício | Estrutura semanal |
 |---|---|
-| Back Squat | 4-5 séries: 42% → 80-87% (rampa). Linear +4kg/sem |
-| Terra Convencional | 3 séries: 47% → 85-91% (rampa) |
-| Supino Inc Barra | 5 séries: 57% → 83-91% (rampa) |
-| Landmine Press | 3 séries + 1 extra esquerdo: 51% → 76% |
+| Supino Inc Barra | 5 séries: 57% → 83-91% (rampa). +2kg a cada 1-2 semanas |
+| Landmine Press | 3 séries + 1 extra esquerdo: 51% → 76%. +2kg ao fechar 5/lado |
 
 ### Acessórios (wt type) — rampa interna
 - 3 séries: 75% (Aquec) → 88% (Médio) → 100% (Trabalho)
@@ -214,47 +214,49 @@ Documento consolidado de toda a pesquisa científica usada para montar o treino 
 
 ---
 
-## 5. Nutrição — Recomposição Corporal
+## 5. Nutrição — Recomposição Corporal (v3)
 
-### Base científica
-- **TDEE estimado:** ~3.000 kcal (Katch-McArdle 1.804 × 1.65 atividade)
-- **Déficit ótimo:** ~390 kcal/dia (Garthe 2011: 0.5%/sem preserva LBM)
-- **Calorias alvo:** ~2.610 kcal/dia
-- **Perda esperada:** 0.4-0.5 kg/semana (só gordura)
+### Base científica (recalculada out/2026)
+- **BMR:** Katch-McArdle com LBM 65.6 kg ≈ 1.790 kcal
+- **TDEE estimado:** ~2.900 kcal (LPO 2x + CrossFit 2x + academia 2x + bike 1-2x, home office). A estimativa anterior de 3.000 com boxe 1x não produziu perda em 6 meses, então o multiplicador foi reduzido.
+- **Déficit:** ~500 kcal/dia → **meta ~2.400 kcal/dia**
+- **Perda esperada:** ~0,5 kg/semana, medida pela **média semanal** do peso em jejum (Garthe 2011)
+- **Bike** soma ~1.000 kcal/semana (~130 g de gordura). É reforço; o motor é a dieta.
 
 ### Macros
 | Macro | g | g/kg | Fonte |
 |---|---|---|---|
-| Proteína | 195 | 2.35 BW / 2.94 LBM | Jäger 2017 ISSN, Longland 2016 RCT |
-| Carbo | 300 | 3.6 | PMC11720227 LPO nutrition |
-| Gordura | 70 | 0.84 | PMID 33741447 (testosterona) |
+| Proteína | 190 | 2.3 BW / 2.9 LBM | Jäger 2017 ISSN, Longland 2016 RCT |
+| Carbo | 260 | 3.2 | PMC11720227 LPO nutrition |
+| Gordura | 65 | 0.8 | PMID 33741447 (testosterona) |
 
-### Distribuição (4 refeições — simplificado para aderência e custo)
-- **Café da manhã 7h**: 40g P, 70g C, 15g G (~600 kcal) — 4 ovos + 2 pães + leite + requeijão
-- **Almoço 12h-13h**: 55g P, 100g C, 15g G (~760 kcal) — coxa/sobrecoxa + 200g arroz + 150g feijão
-- **Lanche pré-treino 16h-17h**: 30g P, 55g C, 10g G (~430 kcal) — whey/ovos/atum + pão + banana + pasta amendoim (sem leite)
-- **Jantar + pré-sono 20h-22h**: 70g P, 55g C, 25g G (~820 kcal) — 200g coxa + whey + 150g arroz + 100g feijão
+### Distribuição (5 refeições nos horários reais do usuário)
+- **Café 7h**: 35g P, 45g C, 12g G (~430 kcal) — 2 ovos + whey (ou queijo + leite) + 1 pão + banana
+- **Lanche 10h**: 25g P, 30g C, 5g G (~270 kcal) — whey + meio mamão + banana
+- **Almoço 11h20**: 50g P, 85g C, 15g G (~680 kcal) — sobrecoxa ou peito + 160g arroz + 150g feijão + salada à vontade
+- **Café da tarde 16h**: 30g P, 55g C, 12g G (~450 kcal) — whey + pão + banana + 25g amendoim em grão. Pré-treino nos dias de LPO.
+- **Jantar 18h30 (22h nos dias de LPO)**: 50g P, 45g C, 20g G (~560 kcal) — 150g sobrecoxa ou peito + ovo + 100g arroz + feijão
 
-**Nota:** estrutura anterior era 5 refeições (Areta 2013 ideal). Reduzido para 4 por preferência do usuário (aderência + custo). Jantar ficou maior para saciedade noturna. Whey substituiu caseína pré-sono (mais barato, eficácia similar).
+**Por que mudou:** usuário relatou fome entre café e almoço e entre almoço e café da tarde. Causas: almoço real às 11h20 (plano assumia 12h-13h), café da manhã só com pão, mamão das 10h sem proteína. Correção: proteína saiu do jantar (era 70g) e foi pro lanche das 10h; pão virou ovo+whey no café; salada à vontade no almoço. Usuário não come mais que 2 ovos no café. Pasta de amendoim trocada por amendoim em grão (metade do custo por grama de gordura).
 
 ### Carb cycling (ajuste diário de arroz)
 | Dia | Treino | Ajuste | Kcal |
 |---|---|---|---|
-| Seg | LPO | +30g arroz almoço | ~2.710 |
-| Ter | Push | base | ~2.610 |
-| Qua | LPO | +30g arroz almoço | ~2.710 |
-| **Qui** | **Lower (pico)** | **+50g almoço + 30g jantar** | **~2.850** |
-| Sex | Boxe | base | ~2.610 |
-| Sáb | Pull | base | ~2.610 |
-| **Dom** | **Descanso** | **-50g almoço -30g jantar** | **~2.370** |
+| Seg | LPO | +30g arroz almoço | ~2.500 |
+| Ter | CrossFit | +30g arroz almoço | ~2.500 |
+| Qua | LPO | +30g arroz almoço | ~2.500 |
+| Qui | Academia | base | ~2.400 |
+| Sex | CrossFit | +30g arroz almoço | ~2.500 |
+| Sáb | Academia | base | ~2.400 |
+| Dom | Bike longa | -30g arroz jantar | ~2.300 |
 
-Proteína e gordura ficam **iguais todos os dias** — só o arroz muda.
+Proteína e gordura iguais todos os dias. Bike em zona 2 usa gordura, não precisa de carbo extra.
 
 ### Suplementos (todos evidência forte)
 | # | Suplemento | Dose | Observação |
 |---|---|---|---|
 | 1 | Creatina monoidratada | 5g/dia | Não-negociável |
-| 2 | Whey protein | 25-50g | Praticidade + substitui caseína pré-sono |
+| 2 | Whey protein | 25-50g | Café, lanche 10h e 16h. Substitui caseína pré-sono |
 | 3 | **Citrulina malato** | **8g pré-treino** | **Substituiu cafeína** (treino noturno) |
 | 4 | **Beta-alanina** | **5g/dia** | Crítico pro boxe (buffer lactato) |
 | 5 | Vitamina D3 | 2.000-4.000 IU | Provável deficiência |
@@ -264,7 +266,9 @@ Proteína e gordura ficam **iguais todos os dias** — só o arroz muda.
 - **Sexta sem carne** (carne vermelha e frango). Peixe permitido (tilápia, atum, sardinha, salmão).
 - **Não come batata-doce**.
 - **Reduzir leite** (preferência pessoal) — whey com água no lanche.
-- Preferência por **fontes baratas** de proteína: ovos, coxa/sobrecoxa (em vez de peito), atum/sardinha lata, tilápia.
+- Preferência por **fontes baratas** de proteína: ovos, sobrecoxa ou peito de frango (os dois servem), atum/sardinha lata, tilápia.
+- **Máximo 2 ovos no café da manhã** — não consegue comer mais.
+- **Amendoim em grão** no lugar de pasta de amendoim (custo).
 - Proteínas removidas por custo: peito de peru, cottage, iogurte integral, salmão (exceto eventual).
 
 ### Custo estimado (só alimentos, sem suplementos)
@@ -326,7 +330,16 @@ Proteína e gordura ficam **iguais todos os dias** — só o arroz muda.
 7. **Side plank assimétrico (esq dobrado)** — ataca atrofia do lado concavo
 8. **Prone Y raise** — déficit escapular ataca trap inferior
 
-### Dieta
+### v3 (out/2026)
+1. **Academia vira só acessórios** — agacha, terra, hip thrust, nordic, panturrilha saem; LPO + CrossFit cobrem
+2. **Supino inclinado é o único lift por % de 1RM** — prioridade clavicular mantida
+3. **Braços 2x/sem** com pesado/leve alternado entre quinta e sábado
+4. **Meta cai de 2.610 para 2.400 kcal** — 6 meses sem perda provam que o TDEE estava superestimado
+5. **5 refeições nos horários reais** (7h, 10h, 11h20, 16h, 18h30/22h) — resolve a fome relatada
+6. **Bike zona 2: domingo longa + 1 curta opcional em dia de academia** — nunca em dia de LPO/CrossFit
+7. **Peso avaliado por média semanal** — não por dia
+
+### Dieta (v2, mantido)
 1. **2.610 kcal e não 2.045** — proteção da progressão novato + recomposição em vez de cutting agressivo
 2. **195g proteína** — preservar LBM em déficit (Longland 2016)
 3. **Citrulina + beta-alanina substituem cafeína** — treino noturno, evitar insônia
@@ -334,7 +347,17 @@ Proteína e gordura ficam **iguais todos os dias** — só o arroz muda.
 
 ---
 
-## 8. Como Usar Este Documento
+## 8. Cardio (Bike outdoor)
+
+- **Objetivo:** reduzir BF sem roubar recuperação de 6 sessões/semana.
+- **Dose:** domingo 60-90 min + opcional 30-40 min na quinta ou sábado (dias leves). Total 90-130 min/semana.
+- **Intensidade:** zona 2 (consegue falar frases inteiras). Gasto ~400-600 kcal na saída longa.
+- **Regra:** nunca em dia de LPO ou CrossFit. Se força no LPO cair 2 semanas seguidas, cortar a saída curta antes de mexer na dieta.
+- **Evidência:** ACSM recomenda 150-250 min/sem de cardio moderado pra perda de peso clinicamente relevante; aqui fica abaixo de propósito porque CrossFit já é cardio de alta intensidade 2x/sem e o déficit vem da dieta.
+
+---
+
+## 9. Como Usar Este Documento
 
 Em ajustes futuros do treino ou dieta:
 1. Releia a seção relevante (perfil, exercícios por padrão, ou nutrição)

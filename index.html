@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>LiftMap v2</title>
-<meta name="description" content="LiftMap v2 - Periodizacao de forca com cargas pre-calculadas">
+<meta name="description" content="LiftMap v3 - Acessorios peito/bracos/core + dieta recomposicao">
 <meta name="theme-color" content="#0f0f1a">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏋️</text></svg>">
 <style>
@@ -111,13 +111,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 // ===== CONFIG =====
 const DEF_CFG = {
   // 1RMs (barbell compounds)
-  squat:120, deadlift:127, incBench:70, landmine:63,
+  incBench:70, landmine:63,
   // Push working weights
   supRetoDB:24, cableFly:10, triOverhead:15, triFranc:8,
-  // Lower working weights
-  bulgaro:14, hipThrust:60, stiffUni:16, pantStand:70, pantSeat:30,
   // Pull working weights
-  chestRow:22, latUni:22, remUni:22, facePull:15, proneY:2,
+  chestRow:22, facePull:15, proneY:2,
   // Biceps
   roscaInc:10, martelo:14,
   // Core loaded
@@ -137,28 +135,68 @@ function isDone(day,exId,si){return localStorage.getItem(pKey(day,exId,si))==='1
 function setDoneVal(day,exId,si,v){if(v)localStorage.setItem(pKey(day,exId,si),'1');else localStorage.removeItem(pKey(day,exId,si));}
 
 // ===== PLAN DATA =====
-const DAYS=['terca','quinta','sabado'];
+const DAYS=['quinta','sabado'];
 
 function getPlan(){return {
-terca:{
-  name:"Ter",fullName:"Terca - Upper Push",icon:"\uD83D\uDCAA",
-  subtitle:"Peitoral Superior + Deltoide + Triceps + Core",
+quinta:{
+  name:"Qui",fullName:"Quinta - Peito + Triceps",icon:"💪",
+  subtitle:"Peitoral Superior + Triceps pesado + Biceps leve + Core Anti-Extensao/Rotacao",
   sections:[
-    {name:"Aquecimento",icon:"\uD83D\uDD25",exercises:[
-      {id:"cc-t",name:"Cat-Camel",type:"bw",sets:1,reps:"6 ciclos",video:"cat camel exercise como fazer",note:"Movimentos lentos, sem forcar amplitude"},
-      {id:"pup-t",name:"Push-Up Plus",type:"bw",sets:2,reps:"10",video:"push up plus serratus anterior",note:"No topo, empurre o chao afastando as escapulas"},
-      {id:"rot-t",name:"Rotacoes Toracicas",type:"bw",sets:2,reps:"8/lado",video:"thoracic rotation exercise floor",note:"Deitado de lado, abra o braco rodando o tronco"},
+    {name:"Aquecimento",icon:"🔥",exercises:[
+      {id:"cc-q",name:"Cat-Camel",type:"bw",sets:1,reps:"6 ciclos",video:"cat camel exercise como fazer",note:"Movimentos lentos, sem forcar amplitude"},
+      {id:"pup-q",name:"Push-Up Plus",type:"bw",sets:2,reps:"10",video:"push up plus serratus anterior",note:"No topo, empurre o chao afastando as escapulas"},
+      {id:"rot-q",name:"Rotacoes Toracicas",type:"bw",sets:2,reps:"8/lado",video:"thoracic rotation exercise floor",note:"Deitado de lado, abra o braco rodando o tronco"},
     ]},
-    {name:"Treino Principal",icon:"\uD83C\uDFCB\uFE0F",exercises:[
-      {id:"sup-inc-b",name:"Supino Inclinado 30\u00B0 (Barra)",type:"bb",maxKey:"incBench",
+    {name:"Peito (Forca + Hipertrofia)",icon:"🏋️",exercises:[
+      {id:"sup-inc-b",name:"Supino Inclinado 30° (Barra)",type:"bb",maxKey:"incBench",
         video:"supino inclinado barra 30 graus como fazer",
-        note:"PRIORIDADE #1 - cabeca clavicular. Banco a 30\u00B0, NAO 45\u00B0",
+        note:"PRIORIDADE #1 - cabeca clavicular. Banco a 30°, NAO 45°. Unico exercicio por % de 1RM",
         ws:[
           [{p:.57,r:8,t:'aq'},{p:.69,r:6,t:'med'},{p:.77,r:5,t:'wk'},{p:.83,r:4,t:'wk'},{p:.83,r:4,t:'wk'}],
           [{p:.57,r:8,t:'aq'},{p:.71,r:6,t:'med'},{p:.80,r:5,t:'wk'},{p:.89,r:3,t:'wk'},{p:.89,r:3,t:'wk'}],
           [{p:.60,r:8,t:'aq'},{p:.74,r:6,t:'med'},{p:.83,r:4,t:'wk'},{p:.91,r:3,t:'wk'},{p:.91,r:'2-3',t:'wk'}],
           [{p:.51,r:8,t:'aq'},{p:.63,r:6,t:'med'},{p:.71,r:5,t:'wk'}],
         ]},
+      {id:"sup-reto-db",name:"Supino Reto (Halteres)",type:"wt",cfgKey:"supRetoDB",sets:3,reps:"10",unit:"kg/mao",
+        video:"supino reto com halter como fazer",
+        note:"Cobre meio/baixo do peito. Halter respeita assimetria L>R"},
+      {id:"cable-fly",name:"Cable Fly Low-to-High (polias baixas)",type:"wt",cfgKey:"cableFly",sets:3,reps:"12-15",unit:"kg/lado",
+        video:"cable fly low to high crossover upper chest",
+        note:"Tensao constante na cabeca clavicular (forte evidencia EMG)"},
+    ]},
+    {name:"Triceps pesado + Biceps leve",icon:"💪",exercises:[
+      {id:"tri-overhead",name:"Triceps Overhead (corda ou halter)",type:"wt",cfgKey:"triOverhead",sets:3,reps:"10-12",unit:"kg",
+        video:"overhead triceps extension cable rope",
+        note:"Cabeca longa ESTICADA = +47% hipertrofia vs pushdown (Maeo 2023 RCT)"},
+      {id:"tri-franc",name:"Triceps Frances Unilateral",type:"wt",cfgKey:"triFranc",sets:3,reps:"12/lado",unit:"kg/mao",
+        video:"triceps frances unilateral halter",note:"Cotovelo apontando pro teto. 2a fonte de cabeca longa"},
+      {id:"rosca-inc",name:"Rosca Inclinada (Halter)",type:"wt",cfgKey:"roscaInc",sets:2,reps:"10-12/mao",unit:"kg/mao",
+        video:"rosca inclinada halter banco como fazer",note:"Banco 45°. Dose leve de quinta - o dia pesado de biceps e sabado"},
+    ]},
+    {name:"Core Anti-Extensao + Anti-Rotacao",icon:"🎯",exercises:[
+      {id:"deadbug-q",name:"Dead Bug Completo",type:"bw",sets:3,reps:"8/lado",video:"dead bug exercise completo",note:"Lombar COLADA no chao. Essencial para hiperlordose"},
+      {id:"rkc-q",name:"RKC Plank",type:"bw",sets:3,reps:"15-20seg",video:"RKC plank exercise tutorial",note:"Contracao MAXIMA de gluteos e abdomen. Corrige hiperlordose"},
+      {id:"pallof-q",name:"Pallof Press",type:"wt",cfgKey:"pallof",sets:3,reps:"10/lado",unit:"kg",badges:['extra'],
+        video:"pallof press cable como fazer",note:"Resista a rotacao. Essencial para escoliose. Serie extra esquerdo"},
+    ]},
+  ]
+},
+
+sabado:{
+  name:"Sab",fullName:"Sabado - Costas + Ombro + Bracos",icon:"🔙",
+  subtitle:"Costas + Deltoide + Biceps pesado + Triceps leve + Core Anti-Flexao Lateral",
+  sections:[
+    {name:"Aquecimento",icon:"🔥",exercises:[
+      {id:"bpa-s",name:"Band Pull-Apart",type:"bw",sets:2,reps:"15",video:"band pull apart exercicio como fazer",note:"Banda elastica. Abra horizontalmente apertando escapulas"},
+      {id:"ws-s",name:"Wall Slide",type:"bw",sets:2,reps:"10",video:"wall slide exercise scapular",note:"Costas na parede, deslize bracos mantendo contato"},
+    ]},
+    {name:"Costas",icon:"🏋️",exercises:[
+      {id:"chest-row",name:"Chest-Supported DB Row (banco inclinado)",type:"wt",cfgKey:"chestRow",sets:4,reps:"8-12/mao",unit:"kg/mao",
+        video:"chest supported dumbbell row incline bench",note:"Peito apoiado no banco inclinado. MINIMA carga lombar (Fenwick 2009)"},
+      {id:"pull-up",name:"Pull-Up Pronada (larga)",type:"bw",sets:4,reps:"max",
+        video:"pull up pronada pegada larga como fazer",note:"Trap inferior + LD + especifico LPO. Use assistencia se precisar"},
+    ]},
+    {name:"Ombro + Estabilizadores Escapulares",icon:"🩶",exercises:[
       {id:"land-uni",name:"Landmine Press Unilateral",type:"bb",maxKey:"landmine",badges:['left'],
         video:"landmine press unilateral como fazer",
         note:"Deltoide frontal + serratil. ZERO compressao overhead. Esq primeiro",
@@ -168,124 +206,34 @@ terca:{
           [{p:.54,r:'8/lado',t:'aq'},{p:.67,r:'6/lado',t:'med'},{p:.76,r:'4/lado',t:'wk'},{p:.67,r:'8 esq',t:'extra'}],
           [{p:.48,r:'8/lado',t:'aq'},{p:.54,r:'6/lado',t:'med'}],
         ]},
-      {id:"sup-reto-db",name:"Supino Reto (Halteres)",type:"wt",cfgKey:"supRetoDB",sets:3,reps:"10",unit:"kg/mao",
-        video:"supino reto com halter como fazer",
-        note:"Cobre meio/baixo do peito. Halter respeita assimetria L>R"},
-      {id:"cable-fly",name:"Cable Fly Low-to-High (polias baixas)",type:"wt",cfgKey:"cableFly",sets:3,reps:"12-15",unit:"kg/lado",
-        video:"cable fly low to high crossover upper chest",
-        note:"Tensao constante na cabeca clavicular (forte evidencia EMG)"},
-      {id:"tri-overhead",name:"Triceps Overhead (corda ou halter)",type:"wt",cfgKey:"triOverhead",sets:3,reps:"10-12",unit:"kg",
-        video:"overhead triceps extension cable rope",
-        note:"Cabeca longa ESTICADA = +47% hipertrofia vs pushdown (Maeo 2023 RCT)"},
-      {id:"tri-franc",name:"Triceps Frances Unilateral",type:"wt",cfgKey:"triFranc",sets:2,reps:"12/lado",unit:"kg/mao",
-        video:"triceps frances unilateral halter",note:"Cotovelo apontando pro teto. 2a fonte de cabeca longa"},
-    ]},
-    {name:"Core Anti-Extensao",icon:"\uD83C\uDFAF",exercises:[
-      {id:"deadbug-t",name:"Dead Bug Completo",type:"bw",sets:3,reps:"8/lado",video:"dead bug exercise completo",note:"Lombar COLADA no chao. Essencial para hiperlordose"},
-      {id:"rkc-t",name:"RKC Plank",type:"bw",sets:3,reps:"15-20seg",video:"RKC plank exercise tutorial",note:"Contracao MAXIMA de gluteos e abdomen. Corrige hiperlordose"},
-    ]},
-  ]
-},
-
-quinta:{
-  name:"Qui",fullName:"Quinta - Lower",icon:"\uD83E\uDDB5",
-  subtitle:"Agachamento + Terra + Acessorios + Core",
-  sections:[
-    {name:"Aquecimento",icon:"\uD83D\uDD25",exercises:[
-      {id:"cc-q",name:"Cat-Camel",type:"bw",sets:1,reps:"6 ciclos",video:"cat camel exercise como fazer",note:"Mobilidade segmentar da coluna"},
-      {id:"gb-q",name:"Glute Bridge",type:"bw",sets:2,reps:"12",video:"glute bridge ativacao gluteo",note:"Aperte GLUTEOS no topo. Combate hiperlordose"},
-      {id:"flex-q",name:"Along. Flexores de Quadril",type:"bw",sets:2,reps:"30seg/lado",video:"alongamento flexor quadril stretch",note:"Flexores encurtados pioram hiperlordose"},
-    ]},
-    {name:"Treino Principal",icon:"\uD83C\uDFCB\uFE0F",exercises:[
-      {id:"squat",name:"Back Squat",type:"bb",maxKey:"squat",
-        video:"back squat como fazer corretamente",
-        note:"Progressao linear +4kg/semana. Foco em profundidade e controle",
-        ws:[
-          [{p:.42,r:8,t:'aq'},{p:.58,r:5,t:'med'},{p:.70,r:5,t:'wk'},{p:.80,r:5,t:'wk'},{p:.80,r:5,t:'wk'}],
-          [{p:.42,r:8,t:'aq'},{p:.60,r:5,t:'med'},{p:.73,r:5,t:'wk'},{p:.83,r:5,t:'wk'},{p:.83,r:5,t:'wk'}],
-          [{p:.42,r:8,t:'aq'},{p:.62,r:5,t:'med'},{p:.75,r:5,t:'wk'},{p:.87,r:'4-5',t:'wk'},{p:.87,r:'3-5',t:'wk'}],
-          [{p:.42,r:8,t:'aq'},{p:.50,r:5,t:'med'},{p:.60,r:5,t:'wk'}],
-        ]},
-      {id:"terra",name:"Terra Convencional",type:"bb",maxKey:"deadlift",
-        video:"levantamento terra convencional como fazer",
-        note:"3 series apenas - muito taxante no SNC. Progressao +4kg/semana",
-        ws:[
-          [{p:.47,r:6,t:'aq'},{p:.71,r:5,t:'med'},{p:.85,r:5,t:'wk'}],
-          [{p:.47,r:6,t:'aq'},{p:.72,r:5,t:'med'},{p:.88,r:5,t:'wk'}],
-          [{p:.47,r:6,t:'aq'},{p:.74,r:5,t:'med'},{p:.91,r:'4-5',t:'wk'}],
-          [{p:.47,r:6,t:'aq'},{p:.63,r:5,t:'wk'}],
-        ]},
-      {id:"bulgaro",name:"Agachamento Bulgaro (Halteres)",type:"wt",cfgKey:"bulgaro",sets:3,reps:"8-10/perna",unit:"kg/mao",badges:['left'],
-        video:"agachamento bulgaro halter como fazer",
-        note:"Esquerda primeiro. Unilateral - corrige assimetria entre pernas"},
-      {id:"hip-thrust",name:"Hip Thrust (Barra)",type:"wt",cfgKey:"hipThrust",sets:3,reps:"10-12",unit:"kg",
-        video:"hip thrust com barra como fazer",
-        note:"Aperte GLUTEOS no topo. Essencial para hiperlordose e potencia no LPO"},
-      {id:"stiff-uni",name:"Stiff Unilateral (Single-Leg RDL)",type:"wt",cfgKey:"stiffUni",sets:3,reps:"10/perna",unit:"kg/mao",badges:['left'],
-        video:"single leg romanian deadlift como fazer",note:"Halter na mao OPOSTA a perna de apoio. Isquios + corrige assimetria"},
-      {id:"nordic",name:"Nordic Curl (Swiss Ball Leg Curl)",type:"bw",sets:3,reps:"10",
-        video:"swiss ball hamstring leg curl exercise",note:"Costas no chao, calcanhares na bola, eleve quadril e role a bola. Excentrico dos isquios (-51% lesao, Van Dyk 2019)"},
-      {id:"pant-stand",name:"Panturrilha em Pe",type:"wt",cfgKey:"pantStand",sets:3,reps:"10-12",unit:"kg",
-        video:"elevacao panturrilha em pe como fazer",note:"Gastrocnemio (+12% hipertrofia vs sentado, Nunes 2023). Potencia pro boxe"},
-      {id:"pant-seat",name:"Panturrilha Sentada",type:"wt",cfgKey:"pantSeat",sets:3,reps:"15-20",unit:"kg",
-        video:"seated calf raise maquina",note:"Soleo - crucial pro catch do snatch/clean (tornozelo em flexao)"},
-      {id:"glut-med",name:"Side-Lying Hip Abduction",type:"bw",sets:2,reps:"15/lado",
-        video:"side lying hip abduction banda",note:"Gluteo medio - estabilizador pelvico. Fraqueza agrava hiperlordose"},
-    ]},
-    {name:"Core Anti-Flexao Lateral",icon:"\uD83C\uDFAF",exercises:[
-      {id:"farmer-q",name:"Farmer's Carry Unilateral (mao direita)",type:"wt",cfgKey:"farmer",sets:3,reps:"30m",unit:"kg",
-        video:"suitcase carry farmer walk unilateral",note:"Peso SO na mao DIREITA - forca o lado ESQUERDO a estabilizar"},
-      {id:"suit-dl",name:"Suitcase Deadlift",type:"wt",cfgKey:"suitDL",sets:3,reps:"8/lado",unit:"kg",
-        video:"suitcase deadlift como fazer",note:"Terra com peso em UM lado so. Anti-flexao lateral com carga"},
-    ]},
-  ]
-},
-
-sabado:{
-  name:"Sab",fullName:"Sabado - Upper Pull + Extras",icon:"\uD83D\uDD19",
-  subtitle:"Costas + Biceps + Volume Extra Peito/Ombro + Core",
-  sections:[
-    {name:"Aquecimento",icon:"\uD83D\uDD25",exercises:[
-      {id:"bpa-s",name:"Band Pull-Apart",type:"bw",sets:2,reps:"15",video:"band pull apart exercicio como fazer",note:"Banda elastica. Abra horizontalmente apertando escapulas"},
-      {id:"ws-s",name:"Wall Slide",type:"bw",sets:2,reps:"10",video:"wall slide exercise scapular",note:"Costas na parede, deslize bracos mantendo contato"},
-    ]},
-    {name:"Pull (Forca)",icon:"\uD83C\uDFCB\uFE0F",exercises:[
-      {id:"chest-row",name:"Chest-Supported DB Row (banco inclinado)",type:"wt",cfgKey:"chestRow",sets:4,reps:"8-12/mao",unit:"kg/mao",
-        video:"chest supported dumbbell row incline bench",note:"Peito apoiado no banco inclinado. MINIMA carga lombar (Fenwick 2009). Substitui T-Bar"},
-      {id:"pull-up",name:"Pull-Up Pronada (larga)",type:"bw",sets:4,reps:"max",
-        video:"pull up pronada pegada larga como fazer",note:"Trap inferior + LD + especifico LPO. Use assistencia se precisar"},
-      {id:"lat-uni",name:"Lat Pulldown Unilateral",type:"wt",cfgKey:"latUni",sets:3,reps:"10-12/lado",unit:"kg",badges:['left','extra'],
-        video:"lat pulldown unilateral cabo como fazer",note:"Puxe com o cotovelo. Serie extra esquerdo (lado concavo)"},
-      {id:"rem-uni",name:"Remada Unilateral (Halter)",type:"wt",cfgKey:"remUni",sets:3,reps:"10-12/lado",unit:"kg/mao",badges:['left','extra'],
-        video:"remada unilateral halter banco como fazer",note:"Cotovelo rente ao corpo. Serie extra esquerdo"},
-    ]},
-    {name:"Estabilizadores Escapulares",icon:"\uD83E\uDE76",exercises:[
       {id:"prone-y",name:"Prone Y Raise",type:"wt",cfgKey:"proneY",sets:3,reps:"12",unit:"kg/mao",
         video:"prone Y raise bench lower trapezius",note:"TRAP INFERIOR - 97% MVIC (Ekstrom 2003). Ataque direto ao deficit escapular. Peso LEVE"},
       {id:"face-pull",name:"Face Pull (Corda)",type:"wt",cfgKey:"facePull",sets:3,reps:"15",unit:"kg",
         video:"face pull corda polia como fazer",note:"Rotacione ombros pra fora no final. Trap medio + romboides"},
-      {id:"push-plus",name:"Push-Up Plus",type:"bw",sets:3,reps:"10",
-        video:"push up plus serratus anterior",note:"Serratil anterior (Kang 2019 meta). Estabilizador do overhead pro LPO"},
     ]},
-    {name:"Biceps",icon:"\uD83D\uDCAA",exercises:[
+    {name:"Biceps pesado + Triceps leve",icon:"💪",exercises:[
       {id:"rosca-inc",name:"Rosca Inclinada (Halter)",type:"wt",cfgKey:"roscaInc",sets:3,reps:"10-12/mao",unit:"kg/mao",
-        video:"rosca inclinada halter banco como fazer",note:"Banco 45\u00B0. Cabeca LONGA esticada - maior hipertrofia proximal (Oliveira 2013)"},
-      {id:"martelo",name:"Rosca Martelo (alternada)",type:"wt",cfgKey:"martelo",sets:2,reps:"10-12",unit:"kg/mao",
-        video:"rosca martelo alternada como fazer",note:"Braquiorradial - grip pro clean"},
+        video:"rosca inclinada halter banco como fazer",note:"Banco 45°. Cabeca LONGA esticada - maior hipertrofia proximal (Oliveira 2013)"},
+      {id:"martelo",name:"Rosca Martelo (alternada)",type:"wt",cfgKey:"martelo",sets:3,reps:"10-12",unit:"kg/mao",
+        video:"rosca martelo alternada como fazer",note:"Braquiorradial - grip pro clean e pro CrossFit"},
+      {id:"tri-overhead",name:"Triceps Overhead (corda ou halter)",type:"wt",cfgKey:"triOverhead",sets:2,reps:"12-15",unit:"kg",
+        video:"overhead triceps extension cable rope",note:"Dose leve de sabado - 2a frequencia semanal da cabeca longa"},
     ]},
-    {name:"Core Anti-Rotacao + Flexao Lateral",icon:"\uD83C\uDFAF",exercises:[
-      {id:"pallof-s",name:"Pallof Press",type:"wt",cfgKey:"pallof",sets:3,reps:"10/lado",unit:"kg",badges:['extra'],
-        video:"pallof press cable como fazer",note:"Resista a rotacao. Essencial para escoliose. Serie extra esquerdo"},
+    {name:"Core Anti-Flexao Lateral",icon:"🎯",exercises:[
       {id:"side-plank",name:"Side Plank Assimetrico (esq dobrado)",type:"bw",sets:3,reps:"Esq 5-3-1 / Dir 3-2-1 (10seg)",badges:['asym'],
         video:"mcgill side plank piramide",note:"LADO ESQUERDO DOBRADO (concavo/atrofiado). Piramide McGill 5-3-1"},
-      {id:"bird-s",name:"Bird-Dog",type:"bw",sets:3,reps:"5-3-1/lado (10seg)",video:"bird dog exercise como fazer",note:"Quadris nivelados. Sustente mais no lado esquerdo"},
+      {id:"farmer-s",name:"Farmer's Carry Unilateral (mao direita)",type:"wt",cfgKey:"farmer",sets:3,reps:"30m",unit:"kg",
+        video:"suitcase carry farmer walk unilateral",note:"Peso SO na mao DIREITA - forca o lado ESQUERDO a estabilizar"},
+      {id:"suit-dl",name:"Suitcase Deadlift",type:"wt",cfgKey:"suitDL",sets:2,reps:"8/lado",unit:"kg",
+        video:"suitcase deadlift como fazer",note:"Terra com peso em UM lado so. Anti-flexao lateral com carga"},
+      {id:"bird-s",name:"Bird-Dog",type:"bw",sets:2,reps:"5-3-1/lado (10seg)",video:"bird dog exercise como fazer",note:"Quadris nivelados. Sustente mais no lado esquerdo"},
     ]},
   ]
 }
 };}
 
 // ===== STATE =====
-let currentDay='terca';
+let currentDay='quinta';
 
 // ===== RENDERING =====
 const TAG_STYLES={
@@ -438,39 +386,45 @@ function renderInfo(){
       <table class="info-table">
         <tr><th>Dia</th><th>Treino</th></tr>
         <tr><td>Segunda</td><td>LPO</td></tr>
-        <tr><td style="color:var(--accent)">Terca</td><td style="color:var(--accent)">Upper Push (forca + hipertrofia)</td></tr>
+        <tr><td>Terca</td><td>CrossFit</td></tr>
         <tr><td>Quarta</td><td>LPO</td></tr>
-        <tr><td style="color:var(--accent)">Quinta</td><td style="color:var(--accent)">Lower (forca)</td></tr>
-        <tr><td>Sexta</td><td>Boxe</td></tr>
-        <tr><td style="color:var(--accent)">Sabado</td><td style="color:var(--accent)">Upper Pull + extras deficit</td></tr>
-        <tr><td>Domingo</td><td>Descanso</td></tr>
+        <tr><td style="color:var(--accent)">Quinta</td><td style="color:var(--accent)">Peito + Triceps + Core (+ bike curta opcional)</td></tr>
+        <tr><td>Sexta</td><td>CrossFit</td></tr>
+        <tr><td style="color:var(--accent)">Sabado</td><td style="color:var(--accent)">Costas + Ombro + Bracos + Core (+ bike curta opcional)</td></tr>
+        <tr><td>Domingo</td><td>Bike longa</td></tr>
       </table>
+      <p style="margin-top:8px;font-size:11px;color:var(--text2)">Agacha, terra e posterior de coxa ficam por conta do LPO e do CrossFit. A academia cobre so o que eles nao cobrem: peito alto, bracos, estabilizadores escapulares e core da escoliose.</p>
+    </div>
+    <div class="info-section">
+      <h3>🚴 Cardio (Bike outdoor)</h3>
+      <table class="info-table">
+        <tr><th>Dia</th><th>Duracao</th><th>Ritmo</th></tr>
+        <tr><td><strong>Domingo</strong></td><td>60-90 min</td><td>Conversa (zona 2)</td></tr>
+        <tr><td>Quinta ou Sabado</td><td>30-40 min</td><td>Conversa (zona 2)</td></tr>
+      </table>
+      <ul style="margin-top:8px">
+        <li><strong>Zona 2</strong> = consegue falar frases inteiras sem ofegar. Se nao consegue, esta rapido demais.</li>
+        <li><strong>Nunca</strong> em dia de LPO ou CrossFit - rouba recuperacao e derruba a tecnica.</li>
+        <li>Saida longa gasta ~400-600 kcal. Soma ~1.000 kcal/semana, que vale ~130g de gordura. <strong>A dieta e o motor; a bike e o reforco.</strong></li>
+        <li>Se a forca no LPO cair 2 semanas seguidas, corte a saida curta antes de mexer na dieta.</li>
+      </ul>
     </div>
     <div class="info-section">
       <h3>Configurar Cargas</h3>
       <p style="font-size:11px;color:var(--text3);margin-bottom:8px">Atualize quando progredir. Todas as cargas do app recalculam automaticamente.</p>
       <div class="cfg-group-title">Maximos (1RM estimado)</div>
-      ${cfgInput('squat','Back Squat','kg')}
-      ${cfgInput('deadlift','Terra Convencional','kg')}
       ${cfgInput('incBench','Supino Inc. (Barra)','kg')}
       ${cfgInput('landmine','Landmine Press','kg')}
-      <div class="cfg-group"><div class="cfg-group-title">Push (peso de trabalho)</div>
+      <div class="cfg-group"><div class="cfg-group-title">Peito e Triceps (peso de trabalho)</div>
       ${cfgInput('supRetoDB','Supino Reto Halter','kg/mao')}
       ${cfgInput('cableFly','Cable Fly Low-High','kg/lado')}
       ${cfgInput('triOverhead','Triceps Overhead','kg')}
       ${cfgInput('triFranc','Triceps Frances','kg/mao')}</div>
-      <div class="cfg-group"><div class="cfg-group-title">Lower (peso de trabalho)</div>
-      ${cfgInput('bulgaro','Bulgaro','kg/mao')}
-      ${cfgInput('hipThrust','Hip Thrust','kg')}
-      ${cfgInput('stiffUni','Stiff Unilateral','kg/mao')}
-      ${cfgInput('pantStand','Panturrilha Em Pe','kg')}
-      ${cfgInput('pantSeat','Panturrilha Sentada','kg')}</div>
-      <div class="cfg-group"><div class="cfg-group-title">Pull (peso de trabalho)</div>
+      <div class="cfg-group"><div class="cfg-group-title">Costas e Ombro (peso de trabalho)</div>
       ${cfgInput('chestRow','Chest-Supported Row','kg/mao')}
-      ${cfgInput('latUni','Lat Pulldown Uni','kg')}
-      ${cfgInput('remUni','Remada Uni','kg/mao')}
       ${cfgInput('facePull','Face Pull','kg')}
       ${cfgInput('proneY','Prone Y Raise','kg/mao')}</div>
+      <div class="cfg-group"><div class="cfg-group-title">Biceps</div>
       ${cfgInput('roscaInc','Rosca Inclinada','kg/mao')}
       ${cfgInput('martelo','Rosca Martelo','kg/mao')}</div>
       <div class="cfg-group"><div class="cfg-group-title">Core com carga</div>
@@ -494,8 +448,8 @@ function renderInfo(){
       <h3>Progressao</h3>
       <table class="info-table">
         <tr><th>Tipo</th><th>Regra</th></tr>
-        <tr><td>Agacha/Terra</td><td>+4kg/semana enquanto completar reps</td></tr>
-        <tr><td>Supino/Remada (barra)</td><td>+4kg a cada 1-2 semanas</td></tr>
+        <tr><td>Supino Inc. (barra)</td><td>+2kg a cada 1-2 semanas enquanto completar reps</td></tr>
+        <tr><td>Landmine</td><td>+2kg quando fechar 5/lado na serie de trabalho</td></tr>
         <tr><td>Halteres</td><td>Fechar topo da faixa, sobe 2kg</td></tr>
         <tr><td>Cabos/maquinas</td><td>Topo da faixa por 2 sessoes, sobe 1 pino</td></tr>
         <tr><td>Deload (S4)</td><td>~80% do peso, menos 1 serie</td></tr>
@@ -520,7 +474,7 @@ function renderInfo(){
       <label class="import-label">Importar Backup<input type="file" accept=".json" onchange="if(this.files[0])importData(this.files[0])"></label>
     </div>
     <div class="info-section" style="text-align:center">
-      <p style="font-size:10px;color:var(--text3)">LiftMap v2.1</p>
+      <p style="font-size:10px;color:var(--text3)">LiftMap v3.0</p>
     </div>`;
 }
 
@@ -534,7 +488,7 @@ function render(){
   } else if(currentDay==='dieta'){
     content.innerHTML=renderDieta();
     document.getElementById('headerTitle').textContent='Dieta - Recomposicao';
-    document.getElementById('headerSub').textContent='~2.610 kcal \u00B7 195g P \u00B7 300g C \u00B7 70g G';
+    document.getElementById('headerSub').textContent='~2.400 kcal \u00B7 190g P \u00B7 260g C \u00B7 65g G';
   } else {
     const plan=getPlan();
     const day=plan[currentDay];
@@ -550,58 +504,75 @@ function render(){
 
 function renderDieta(){
   const meals=[
-    {name:"Cafe da Manha",time:"7h",p:40,c:70,g:15,kcal:600,
+    {name:"Cafe da Manha",time:"7h",p:35,c:45,g:12,kcal:430,
       protOpts:[
-        {n:"4 ovos + 200ml leite desnatado",p:"30g",cost:"BARATO",tag:"\uD83D\uDFE2"},
-        {n:"3 ovos + 1 scoop whey",p:"43g",cost:"MEDIO",tag:"\uD83D\uDFE1"},
+        {n:"2 ovos + 1 scoop whey (com agua ou leite)",p:"37g",cost:"BARATO",tag:"🟢"},
+        {n:"2 ovos + 2 fatias queijo minas + 200ml leite",p:"28g",cost:"MEDIO",tag:"🟡"},
+        {n:"2 ovos + 1 lata atum",p:"37g",cost:"BARATO",tag:"🟢"},
       ],
-      carb:"2 paes franceses (60g C)",
-      fat:"1 col. requeijao light"},
-    {name:"Almoco",time:"12h-13h",p:55,c:100,g:15,kcal:760,
+      carb:"1 pao frances + 1 banana (45g C)",
+      fat:"1 col. cha manteiga no pao (ovos ja contam)"},
+    {name:"Lanche da Manha",time:"10h",p:25,c:30,g:5,kcal:270,
       protOpts:[
-        {n:"200g coxa/sobrecoxa sem pele (mais barato)",p:"50g",cost:"BARATO",tag:"\uD83D\uDFE2",noFri:true},
-        {n:"180g peito de frango",p:"55g",cost:"BARATO",tag:"\uD83D\uDFE2",noFri:true},
-        {n:"180g patinho moido",p:"50g",cost:"MEDIO",tag:"\uD83D\uDFE1",noFri:true},
-        {n:"2 latas atum + 2 ovos (SEXTA padrao)",p:"48g",cost:"BARATO",tag:"\uD83D\uDFE2"},
-        {n:"180g tilapia",p:"38g",cost:"MEDIO",tag:"\uD83D\uDFE1"},
+        {n:"1 scoop whey (com agua)",p:"25g",cost:"BARATO",tag:"🟢"},
+        {n:"3 ovos cozidos",p:"18g",cost:"BARATO",tag:"🟢"},
+        {n:"1 lata atum",p:"25g",cost:"BARATO",tag:"🟢"},
       ],
-      carb:"200g arroz + 150g feijao + verduras (100g C)",
+      carb:"Meio mamao + 1 banana (30g C) - a fruta que voce ja come, agora com proteina junto",
+      fat:"Nenhuma extra"},
+    {name:"Almoco",time:"11h20",p:50,c:85,g:15,kcal:680,
+      protOpts:[
+        {n:"200g sobrecoxa sem pele",p:"50g",cost:"BARATO",tag:"🟢",noFri:true},
+        {n:"180g peito de frango",p:"55g",cost:"BARATO",tag:"🟢",noFri:true},
+        {n:"180g patinho moido",p:"50g",cost:"MEDIO",tag:"🟡",noFri:true},
+        {n:"2 latas atum + 2 ovos (SEXTA padrao)",p:"48g",cost:"BARATO",tag:"🟢"},
+        {n:"180g tilapia",p:"38g",cost:"MEDIO",tag:"🟡"},
+      ],
+      carb:"160g arroz + 150g feijao + salada A VONTADE (85g C)",
       fat:"1 col. azeite"},
-    {name:"Lanche Pre-treino",time:"16h-17h",p:30,c:55,g:10,kcal:430,
+    {name:"Cafe da Tarde (pre-treino nos dias de LPO)",time:"16h",p:30,c:55,g:12,kcal:450,
       protOpts:[
-        {n:"1 scoop whey (com agua)",p:"25g",cost:"BARATO",tag:"\uD83D\uDFE2"},
-        {n:"3 ovos cozidos",p:"18g",cost:"BARATO",tag:"\uD83D\uDFE2"},
-        {n:"1 lata atum",p:"25g",cost:"BARATO",tag:"\uD83D\uDFE2"},
-        {n:"2 ovos cozidos + 1 scoop whey",p:"37g",cost:"BARATO",tag:"\uD83D\uDFE2"},
+        {n:"1 scoop whey (com agua)",p:"25g",cost:"BARATO",tag:"🟢"},
+        {n:"2 ovos cozidos + 1 scoop whey",p:"37g",cost:"BARATO",tag:"🟢"},
+        {n:"1 lata atum",p:"25g",cost:"BARATO",tag:"🟢"},
       ],
-      carb:"1 pao + 1 banana grande (55g C)",
-      fat:"1 col. pasta de amendoim"},
-    {name:"Jantar + Pre-Sono",time:"20h-22h",p:70,c:55,g:25,kcal:820,
+      carb:"1 pao frances + 1 banana grande (55g C)",
+      fat:"25g amendoim torrado em grao (ou 1 col. cha manteiga no pao)"},
+    {name:"Jantar",time:"18h30 (22h nos dias de LPO)",p:50,c:45,g:20,kcal:560,
       protOpts:[
-        {n:"200g coxa/sobrecoxa + 1 scoop whey",p:"60g",cost:"BARATO",tag:"\uD83D\uDFE2",noFri:true},
-        {n:"200g peito frango + 1 scoop whey",p:"70g",cost:"BARATO",tag:"\uD83D\uDFE2",noFri:true},
-        {n:"200g tilapia + 1 scoop whey",p:"60g",cost:"MEDIO",tag:"\uD83D\uDFE1"},
-        {n:"2 latas atum + 3 ovos + 1 scoop whey",p:"75g",cost:"BARATO",tag:"\uD83D\uDFE2"},
-        {n:"5 ovos + 1 scoop whey + 1 lata sardinha",p:"70g",cost:"BARATO",tag:"\uD83D\uDFE2"},
+        {n:"150g sobrecoxa sem pele + 2 ovos",p:"50g",cost:"BARATO",tag:"🟢",noFri:true},
+        {n:"150g peito de frango + 1 ovo",p:"52g",cost:"BARATO",tag:"🟢",noFri:true},
+        {n:"150g tilapia + 1 scoop whey",p:"57g",cost:"MEDIO",tag:"🟡"},
+        {n:"2 latas atum + 2 ovos",p:"48g",cost:"BARATO",tag:"🟢"},
+        {n:"4 ovos + 1 lata sardinha",p:"44g",cost:"BARATO",tag:"🟢"},
       ],
-      carb:"150g arroz + 100g feijao + verduras (55g C)",
-      fat:"1 col. azeite + verduras a vontade"},
+      carb:"100g arroz + 100g feijao + verduras (45g C)",
+      fat:"1 col. azeite"},
   ];
 
-  let html='<div style="font-size:11px;color:var(--text2);padding:0 4px;margin-bottom:8px">Recomposicao corporal \u00B7 baseado em evidencias \u00B7 ajustar a cada 2 sem</div>';
+  let html='<div style="font-size:11px;color:var(--text2);padding:0 4px;margin-bottom:8px">Recomposicao corporal · 5 refeicoes nos seus horarios reais · ajustar a cada 2 sem</div>';
 
   // Macros gerais
-  html+=`<div class="info-section"><h3>\uD83D\uDCCA Macros Diarios</h3>
+  html+=`<div class="info-section"><h3>📊 Macros Diarios</h3>
     <table class="info-table">
       <tr><th>Macro</th><th>Valor</th><th>g/kg</th></tr>
-      <tr><td><strong>Calorias</strong></td><td><strong>~2.610 kcal</strong></td><td>-</td></tr>
-      <tr><td>Proteina</td><td>195g</td><td>2.35 g/kg</td></tr>
-      <tr><td>Carboidrato</td><td>300g</td><td>3.6 g/kg</td></tr>
-      <tr><td>Gordura</td><td>70g</td><td>0.84 g/kg</td></tr>
+      <tr><td><strong>Calorias</strong></td><td><strong>~2.400 kcal</strong></td><td>-</td></tr>
+      <tr><td>Proteina</td><td>190g</td><td>2.3 g/kg</td></tr>
+      <tr><td>Carboidrato</td><td>260g</td><td>3.2 g/kg</td></tr>
+      <tr><td>Gordura</td><td>65g</td><td>0.8 g/kg</td></tr>
     </table>
-    <p style="margin-top:8px;font-size:11px;color:var(--text2)">Deficit moderado de ~390 kcal \u00B7 perda esperada 0.4-0.5 kg/sem (so gordura)</p>
+    <p style="margin-top:8px;font-size:11px;color:var(--text2)">Gasto estimado ~2.900 kcal (LPO 2x + CrossFit 2x + academia 2x + bike). Deficit ~500 kcal · perda esperada ~0.5 kg/sem. Meta anterior (2.610) nao gerou perda em 6 meses - o gasto estava superestimado.</p>
   </div>`;
 
+  // Fome
+  html+=`<div class="info-section"><h3>🍽 Por que a fome sumiu</h3>
+    <ul>
+      <li>Lanche das 10h agora tem <strong>proteina</strong> - fruta sozinha nao segura.</li>
+      <li>Cafe da manha trocou pao por ovo e whey - saciam mais por caloria.</li>
+      <li>Almoco as 11h20 (horario real), com <strong>salada a vontade</strong> pra encher o estomago sem caloria.</li>
+      <li>Jantar encolheu: a proteina dele foi pro lanche das 10h, onde faltava.</li>
+    </ul>
+  </div>`;
   // Sexta-feira aviso
   html+=`<div class="info-section" style="border-color:var(--warning)"><h3 style="color:var(--warning)">\uD83D\uDC1F Sexta-feira</h3>
     <p style="font-size:12px">SEM CARNE vermelha ou frango. <strong>Peixe permitido</strong> (tilapia, atum, sardinha, salmao). Ovos e laticinios tambem.</p>
@@ -650,7 +621,6 @@ function renderDieta(){
       <tr><td>Whey protein</td><td>25-50g</td><td>Pos-treino / fechar meta</td></tr>
       <tr><td><strong>Citrulina malato</strong></td><td><strong>8g</strong></td><td><strong>45min pre-treino</strong></td></tr>
       <tr><td><strong>Beta-alanina</strong></td><td><strong>5g</strong></td><td>Manha (qualquer hora)</td></tr>
-      <tr><td>Caseina micelar</td><td>30-40g</td><td>Pre-sono</td></tr>
       <tr><td>Vitamina D3</td><td>2-4k IU</td><td>Com refeicao gordurosa</td></tr>
       <tr><td>Omega-3 (EPA+DHA)</td><td>2-3g</td><td>Com refeicao</td></tr>
     </table>
@@ -658,19 +628,19 @@ function renderDieta(){
   </div>`;
 
   // Carb cycling
-  html+=`<div class="info-section"><h3>\uD83D\uDD04 Ajuste por Dia (Carb Cycling)</h3>
-    <p style="font-size:11px;color:var(--text2);margin-bottom:8px">A base (2.610 kcal) e o padrao. Nos dias de treino mais pesado aumenta arroz/feijao; no descanso reduz. Media semanal bate em ~2.610.</p>
+  html+=`<div class="info-section"><h3>🔄 Ajuste por Dia (Carb Cycling)</h3>
+    <p style="font-size:11px;color:var(--text2);margin-bottom:8px">A base (2.400 kcal) e o padrao. Dias de LPO e CrossFit ganham arroz no almoco; domingo (bike longa) perde um pouco. Media semanal ~2.450.</p>
     <table class="info-table">
       <tr><th>Dia</th><th>Treino</th><th>Ajuste do arroz</th><th>Kcal</th></tr>
-      <tr><td>Seg</td><td>LPO</td><td>+30g almoco</td><td>~2.710</td></tr>
-      <tr><td>Ter</td><td>Push</td><td>base</td><td>~2.610</td></tr>
-      <tr><td>Qua</td><td>LPO</td><td>+30g almoco</td><td>~2.710</td></tr>
-      <tr><td style="color:var(--success)"><strong>Qui</strong></td><td style="color:var(--success)"><strong>LOWER (pico)</strong></td><td style="color:var(--success)"><strong>+50g almoco + 30g jantar</strong></td><td style="color:var(--success)"><strong>~2.850</strong></td></tr>
-      <tr><td>Sex</td><td>Boxe</td><td>base</td><td>~2.610</td></tr>
-      <tr><td>Sab</td><td>Pull</td><td>base</td><td>~2.610</td></tr>
-      <tr><td style="color:var(--warning)"><strong>Dom</strong></td><td style="color:var(--warning)"><strong>Descanso</strong></td><td style="color:var(--warning)"><strong>-50g almoco -30g jantar</strong></td><td style="color:var(--warning)"><strong>~2.370</strong></td></tr>
+      <tr><td>Seg</td><td>LPO</td><td>+30g almoco</td><td>~2.500</td></tr>
+      <tr><td>Ter</td><td>CrossFit</td><td>+30g almoco</td><td>~2.500</td></tr>
+      <tr><td>Qua</td><td>LPO</td><td>+30g almoco</td><td>~2.500</td></tr>
+      <tr><td style="color:var(--accent)">Qui</td><td style="color:var(--accent)">Academia</td><td>base</td><td>~2.400</td></tr>
+      <tr><td>Sex</td><td>CrossFit</td><td>+30g almoco</td><td>~2.500</td></tr>
+      <tr><td style="color:var(--accent)">Sab</td><td style="color:var(--accent)">Academia</td><td>base</td><td>~2.400</td></tr>
+      <tr><td style="color:var(--warning)"><strong>Dom</strong></td><td style="color:var(--warning)"><strong>Bike longa</strong></td><td style="color:var(--warning)"><strong>-30g jantar</strong></td><td style="color:var(--warning)"><strong>~2.300</strong></td></tr>
     </table>
-    <p style="margin-top:8px;font-size:11px;color:var(--text2)"><strong>Regra pratica:</strong> em dias de treino pesado (LPO + lower), voce PRECISA de mais glicogenio. Em dia de descanso, menos carbo significa deficit um pouco maior e menos adaptacao metabolica. A proteina e gordura ficam IGUAIS todos os dias - so o arroz muda.</p>
+    <p style="margin-top:8px;font-size:11px;color:var(--text2)"><strong>Regra pratica:</strong> LPO e CrossFit queimam glicogenio, entao recebem mais arroz. Bike em zona 2 queima gordura, entao nao precisa de arroz extra. Proteina e gordura ficam IGUAIS todos os dias.</p>
   </div>`;
 
   // Fontes baratas
@@ -681,9 +651,9 @@ function renderDieta(){
       <tr><td>\uD83D\uDC1F Sardinha em lata</td><td>22g</td><td>R$5-8/lata</td></tr>
       <tr><td>\uD83D\uDC1F Atum em lata</td><td>25g</td><td>R$8-15/lata</td></tr>
       <tr><td>\uD83C\uDF5C Leite desnatado</td><td>3g/100ml</td><td>R$5/litro</td></tr>
-      <tr><td>\uD83E\uDDC0 Cottage / ricota</td><td>12g</td><td>R$8-12/250g</td></tr>
-      <tr><td>\uD83E\uDD63 Iogurte natural integral</td><td>4-6g</td><td>R$10/kg</td></tr>
+      <tr><td>\uD83C\uDF57 Sobrecoxa sem pele</td><td>18g</td><td>R$10-14/kg</td></tr>
       <tr><td>\uD83C\uDF57 Frango peito</td><td>23g</td><td>R$15-25/kg</td></tr>
+      <tr><td>\uD83E\uDD5C Amendoim em grao (gordura)</td><td>26g</td><td>R$15-20/kg (metade da pasta)</td></tr>
       <tr><td>\uD83C\uDF6F Whey concentrado (1kg)</td><td>70g</td><td>R$80-120/kg</td></tr>
       <tr><td>\uD83C\uDFA3 Tilapia (peixe mais barato)</td><td>20g</td><td>R$25-35/kg</td></tr>
       <tr><td>\uD83C\uDF31 PVT (proteina vegetal)</td><td>50g</td><td>R$15/500g</td></tr>
@@ -692,11 +662,12 @@ function renderDieta(){
 
   // Regras de ajuste
   html+=`<div class="info-section"><h3>\uD83D\uDCC8 Protocolo de Ajuste (a cada 2 semanas)</h3>
+    <p style="font-size:11px;color:var(--text2);margin-bottom:8px"><strong>Pese todo dia em jejum e compare a MEDIA da semana com a anterior.</strong> O peso de um dia varia 1-2 kg por agua - e por isso que "seguir a dieta" nunca pareceu funcionar.</p>
     <ul>
       <li>Perda 0.3-0.6 kg/sem + forca mantem \u2192 <strong>continue igual</strong></li>
       <li>Perda &lt; 0.3 kg/sem \u2192 -100 kcal carbo</li>
       <li>Perda &gt; 0.8 kg/sem \u2192 +100 kcal carbo (perdendo musculo)</li>
-      <li>Forca caindo agacha/terra \u2192 +200 kcal nos dias pesados</li>
+      <li>Forca caindo no LPO/CrossFit \u2192 corte a bike curta; se persistir, +200 kcal nos dias pesados</li>
       <li>Cansaco extremo / insonia \u2192 refeed 1 sem, depois retoma</li>
     </ul>
   </div>`;
@@ -808,7 +779,7 @@ function importData(file){
 
 function autoSelectDay(){
   const dow=new Date().getDay();
-  const map={2:'terca',4:'quinta',6:'sabado'};
+  const map={4:'quinta',6:'sabado'};
   if(map[dow])currentDay=map[dow];
 }
 
